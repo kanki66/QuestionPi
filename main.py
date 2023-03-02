@@ -1,18 +1,21 @@
-from typing import Optional
+import uvicorn
+
+from typing import List
 from fastapi import FastAPI
-from pydantic import BaseModel
-from datetime import datetime
+from models import Question
 
-class Question(BaseModel):
-    timestamp: str = datetime.now()
-    question: str
+app = FastAPI(debug=True)
 
-app = FastAPI()
+db_quest: List[Question] = []
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.get("/questions/")
+async def get_questions():
+    return db_quest
 
 @app.post("/questions/")
 async def create_question(question: Question):
+    db_quest.append(question)
     return question
+
+if __name__ == "__main__":
+    uvicorn.run(app)
