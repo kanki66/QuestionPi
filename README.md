@@ -9,3 +9,6 @@ $ deactivate
 
 to fire up server:
 $ uvicorn main:app --reload
+
+connect with SQL:
+https://www.fastapitutorial.com/blog/database-connection-fastapi/
