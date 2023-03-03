@@ -12,3 +12,5 @@ $ uvicorn main:app --reload
 
 connect with SQL:
 https://www.fastapitutorial.com/blog/database-connection-fastapi/
+
+usefull tut: https://kinsta.com/de/blog/fastapi/
