@@ -14,3 +14,7 @@ async def home(request: Request):
 @general_pages_router.get("/allquestions/")
 async def home(request: Request):
 	return templates.TemplateResponse("allquestions.html",{"request":request})
+
+@general_pages_router.get("/jquery/")
+async def home(request: Request):
+	return templates.TemplateResponse("jquery-1.7.1.min.js",{"request":request})

@@ -5,7 +5,7 @@
 </head>
 <body>
   <h2>All questions to the scholar</h2>
-  <p id="demo"></p>
+  <div id="questions"></div>
 </body>
 </html>
 
@@ -13,8 +13,22 @@
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML =
-      this.response;
+      for (var question of JSON.parse(this.response)) {
+        const para = document.createElement("p");
+        const bold = document.createElement("b");
+        const node = document.createTextNode("Asked at "+question.timestamp+" from a "+question.gender+":");
+        bold.appendChild(node);
+        para.appendChild(bold);
+
+        const absa = document.createElement("br");
+        para.appendChild(absa)
+
+        const quest_node = document.createTextNode(question.question);
+        para.appendChild(quest_node);
+        
+        const element = document.getElementById("questions");
+        element.appendChild(para);
+      }
     }
   };
     xhr.open("GET", "http://localhost:8000/questions/");   
