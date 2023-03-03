@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Using Python's SimpleHTTPServer Module</title>
-  <style>
-    #rectangle {
-      height: 50px;
-      width: 100px;
-      background-color: #00f28f;
-    }
-  </style>
+  <title>QuestionPi</title>
 </head>
 <body>
-  <h2>Rectangle served by SimpleHTTPServer</h2>
-  <div id="rectangle"></div>
+  <h2>Ask ur question to the scholar</h2>
+  <label>Question:</label>
+  <input type="text" id="question"><br><br>
+  <input type="checkbox" name="gender" value="male">
+  <label>Male</label><br>
+  <input type="checkbox" name="gender" value="female">
+  <label>Female</label><br><br>
+  <button onclick="myFunction()">Submit</button>
 </body>
 </html>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+  const xhr = new XMLHttpRequest();
+  $("input:checkbox").on('click', function() {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+        // the name of the box is retrieved using the .attr() method
+        // as it is assumed and expected to be immutable
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        // the checked state of the group/box on the other hand will change
+        // and the current value is retrieved using .prop() method
+        $(group).prop("checked", false);
+        $box.prop("checked", true);
+    } else {
+        $box.prop("checked", false);
+    }
+  });
+  function myFunction() {
+    var question=document.getElementById("question").value;  
+    $('input[name="gender"]:checked').each(function() {
+      gender=this.value;
+    })
+    var data = JSON.stringify({"question": question, "gender": gender});
+    // Send a request
+    xhr.open("POST", "http://localhost:8000/question/");   
+    xhr.setRequestHeader("Content-Type", "application/json");     
+    xhr.setRequestHeader("Access-Control-Allow-Headers","Content-Type, X-Auth-Token, Origin, Authorization");
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*")
+    xhr.setRequestHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE")
+    xhr.send(data);
+  }
+  // Define a callback function
+  xhr.onload = function() {
+    // Here you can use the Data
+    console.log(xhr.response);
+  }
+</script>
