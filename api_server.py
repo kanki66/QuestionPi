@@ -2,7 +2,7 @@ from typing import List
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from models import Question
-from route_homepage import general_pages_router
+from route_htmlpages import general_pages_router
 
 def start_application():
     api_ = FastAPI(debug=True)
