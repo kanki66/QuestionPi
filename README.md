@@ -1,6 +1,8 @@
 # QuestionPi
 Connect to the server, ask your question, the host can read the questions
 
+python -m pip install fastapi uvicorn[standard]
+
 type to enter virtuell enviroment:
 $ env\Scripts\activate
 
