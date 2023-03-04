@@ -9,7 +9,7 @@ def start_application():
     api_.include_router(general_pages_router)
     return api_ 
 
-origins = ["http://localhost:4848", "http://localhost:4200"]
+origins = ["*"]
 api_app = start_application()
 db_quest: List[Question] = []
 
